@@ -6,6 +6,25 @@
     <title>QRyptshare - Secure QR Code Generator</title>
     <meta name="description" content="Privacy-first QR code generator for Android. No ads, no tracking, completely offline capable.">
     
+    <!-- SEO & Open Graph Tags -->
+    <meta property="og:title" content="QRyptshare - Privacy-First QR Code Generator">
+    <meta property="og:description" content="Generate WiFi access, vCards, and links instantly. Secure, ad-free, and works entirely offline.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qryptshare.sanchez.ph">
+    <meta property="og:image" content="https://cdn.sanchez.ph/qryptshare/qryptshare-preview.webp">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@tildemark"> <!-- Optional: your Twitter handle -->
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X35VV1R555"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-X35VV1R555'); 
+    </script>
+    
     <!-- Tailwind CSS (via CDN for standalone page) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -53,7 +72,7 @@
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
                 <!-- Direct APK Download Link -->
-                <!-- Replace 'app-release.apk' with your actual filename if different -->
+                <!-- The APK file must be in the same directory (or adjust the path) -->
                 <a href="./app-release.apk" class="flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 hover:-translate-y-1">
                     <i data-lucide="download" class="w-5 h-5"></i>
                     <span>Download APK</span>
