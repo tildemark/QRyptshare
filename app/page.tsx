@@ -15,7 +15,7 @@ export default function Home() {
   const [mode, setMode] = useState<Mode>('url');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNative, setIsNative] = useState(false);
-
+  
   // Check if running on Android/iOS
   useEffect(() => {
     setIsNative(Capacitor.isNativePlatform());
@@ -62,7 +62,17 @@ END:VCARD`;
     setActiveQR(qrData);
   }, [mode, url, ssid, password, encryption, isHidden, firstName, lastName, mobile, email, jobTitle, org, website]);
 
+  // Handle explicit form submit (needed primarily for validation and mobile soft keyboard management)
+  const handleGenerate = (e: React.FormEvent) => {
+    e.preventDefault();
+    // The useEffect hook already sets activeQR, but we use the form submit to trigger validation
+    // and ensure the QR code is ready when the user intends it to be.
+  };
+
+
   const downloadQR = (fileType: 'png' | 'jpeg' | 'webp') => {
+    if (!activeQR) return;
+
     const svg = document.getElementById("qr-code-svg");
     if (!svg) return;
     
@@ -73,8 +83,8 @@ END:VCARD`;
     
     img.onload = () => {
       const scale = 3; // High res
-      const width = (svg.clientWidth || 220) * scale;
-      const height = (svg.clientHeight || 220) * scale;
+      const width = (svg.clientWidth || 256) * scale;
+      const height = (svg.clientHeight || 256) * scale;
       canvas.width = width;
       canvas.height = height;
       
@@ -91,6 +101,7 @@ END:VCARD`;
         downloadLink.click();
       }
     };
+    // Ensure data is properly encoded before converting to base64
     img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
   };
 
@@ -109,10 +120,10 @@ END:VCARD`;
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       
       {/* 1. SIDEBAR (Desktop) / HEADER (Mobile) */}
-      <aside className="bg-white border-b md:border-b-0 md:border-r border-slate-200 w-full md:w-72 flex-shrink-0 flex flex-col md:h-screen md:sticky md:top-0 z-30">
+      <aside className="bg-white border-b md:border-b-0 md:border-r border-slate-200 w-full md:w-72 flex-shrink-0 flex flex-col md:h-screen md:sticky md:top-0 z-30 md:float-left">
         <div className="p-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-blue-600 p-2 rounded-lg">
@@ -139,9 +150,9 @@ END:VCARD`;
                  <Smartphone className="w-4 h-4" /> Mobile App
                </div>
                <p className="text-xs text-blue-600 mb-3">Get the native Android experience.</p>
-               <button className="text-xs bg-blue-600 text-white px-3 py-2 rounded-lg w-full font-medium hover:bg-blue-700">
+               <a href="https://qryptshare.sanchez.ph" target="_blank" rel="noopener noreferrer" className="text-xs bg-blue-600 text-white px-3 py-2 rounded-lg w-full text-center font-medium hover:bg-blue-700 block">
                  Download APK
-               </button>
+               </a>
              </div>
           )}
         </nav>
@@ -152,27 +163,29 @@ END:VCARD`;
       </aside>
 
       {/* 2. MAIN CONTENT AREA (Split View on Desktop) */}
-      <main className="flex-1 flex flex-col md:flex-row max-w-7xl mx-auto w-full">
+      <div className="flex-1 flex max-w-[1920px] mx-auto w-full">
         
         {/* LEFT PANEL: Input Forms */}
-        <div className="flex-1 p-6 md:p-12 overflow-y-auto">
-          <div className="max-w-2xl mx-auto">
+        <div className="flex-1 p-6 md:p-12 overflow-y-auto min-h-screen">
+          <div className="max-w-3xl mx-auto md:mx-0">
             <h2 className="text-2xl font-bold text-slate-900 mb-2 capitalize">
               {mode === 'url' ? 'Website URL' : mode === 'wifi' ? 'WiFi Configuration' : 'Contact Details'}
             </h2>
             <p className="text-slate-500 mb-8">
-              {mode === 'url' && 'Enter a website link to generate a scannable QR code.'}
+              {mode === 'url' && 'Enter a website link for real-time QR code generation.'}
               {mode === 'wifi' && 'Create a code to let guests connect to your network instantly.'}
               {mode === 'contact' && 'Fill out your details to create a shareable digital business card.'}
             </p>
 
-            <form className="space-y-6">
+            <form onSubmit={handleGenerate} className="space-y-6">
+              {/* URL MODE */}
               {mode === 'url' && (
                  <div className="relative group">
                    <input
                      type="url"
                      placeholder="https://example.com"
                      value={url}
+                     required
                      onChange={(e) => setUrl(e.target.value)}
                      className="w-full pl-4 pr-10 py-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
                    />
@@ -180,12 +193,14 @@ END:VCARD`;
                  </div>
               )}
 
+              {/* WIFI MODE */}
               {mode === 'wifi' && (
                 <div className="space-y-4">
                   <input
                     type="text"
                     placeholder="Network Name (SSID)"
                     value={ssid}
+                    required
                     onChange={(e) => setSsid(e.target.value)}
                     className="w-full px-4 py-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
                   />
@@ -194,6 +209,7 @@ END:VCARD`;
                       type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       value={password}
+                      required={encryption !== 'nopass'}
                       disabled={encryption === 'nopass'}
                       onChange={(e) => setPassword(e.target.value)}
                       className="w-full px-4 py-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm disabled:bg-slate-50"
@@ -206,7 +222,7 @@ END:VCARD`;
                     <select
                       value={encryption}
                       onChange={(e) => setEncryption(e.target.value)}
-                      className="w-full px-4 py-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
+                      className="w-full px-4 py-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm appearance-none"
                     >
                       <option value="WPA">WPA/WPA2</option>
                       <option value="WEP">WEP</option>
@@ -220,11 +236,13 @@ END:VCARD`;
                 </div>
               )}
 
+              {/* CONTACT MODE */}
               {mode === 'contact' && (
                 <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-slate-800 border-b border-slate-200 pb-2 mb-4">Personal Details</h3>
                    <div className="grid grid-cols-2 gap-4">
-                      <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" />
-                      <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" />
+                      <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" />
+                      <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" />
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="relative">
@@ -236,6 +254,9 @@ END:VCARD`;
                         <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
                       </div>
                    </div>
+
+                   <h3 className="text-lg font-semibold text-slate-800 border-b border-slate-200 pb-2 mb-4 pt-4">Professional Info</h3>
+
                    <div className="relative">
                       <input type="text" placeholder="Job Title" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm" />
                       <Briefcase className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
@@ -250,11 +271,18 @@ END:VCARD`;
                    </div>
                 </div>
               )}
+
+              <button
+                type="submit"
+                className="w-full bg-slate-900 hover:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 mt-4"
+              >
+                Generate QR Code
+              </button>
             </form>
           </div>
         </div>
 
-        {/* RIGHT PANEL: Sticky Preview */}
+        {/* RIGHT PANEL: Sticky Preview (Mobile: Full Width Bottom) */}
         <div className="w-full md:w-[400px] bg-slate-100/50 border-t md:border-t-0 md:border-l border-slate-200 p-8 flex flex-col items-center justify-center md:h-screen md:sticky md:top-0">
           <div className="bg-white p-6 rounded-3xl shadow-xl border border-slate-100 w-full max-w-sm">
             <div className="bg-white rounded-xl overflow-hidden aspect-square flex items-center justify-center border-2 border-slate-50 mb-6 relative">
@@ -271,7 +299,7 @@ END:VCARD`;
               ) : (
                 <div className="text-slate-300 flex flex-col items-center">
                   <QrCode className="w-16 h-16 mb-2 opacity-20" />
-                  <span className="text-sm font-medium">Enter details to generate</span>
+                  <span className="text-sm font-medium">Type to generate</span>
                 </div>
               )}
             </div>
@@ -292,8 +320,7 @@ END:VCARD`;
             </div>
           </div>
         </div>
-
-      </main>
+      </div>
     </div>
   );
 }
