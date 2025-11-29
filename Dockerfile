@@ -1,33 +1,34 @@
-# 1. Base Image
+# syntax = docker/dockerfile:1
+# Use a minimal base image
 FROM node:18-alpine AS base
 
-# 2. Dependencies Stage
+# Install dependencies only when needed (Dependencies Stage)
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-# 3. Builder Stage
+# Rebuild the source code (Builder Stage)
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN npm run build
 
-# 4. Runner Stage (Production)
+# Production image, copy only essential files (Runner Stage)
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
 
+# Setup Non-Root User
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
+# The Fix: Copying Standalone and Public files to the root
+# The standalone build puts the /public folder in the root of the .next/standalone directory.
+COPY --from=builder /app/public ./public 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
