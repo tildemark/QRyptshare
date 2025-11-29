@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRyptshare - Secure QR Code Generator</title>
+    <meta name="description" content="Privacy-first QR code generator for Android. No ads, no tracking, completely offline capable.">
+    
+    <!-- Tailwind CSS (via CDN for standalone page) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation -->
+    <nav class="w-full py-6 px-6 md:px-12 flex items-center justify-between max-w-7xl mx-auto">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i data-lucide="qr-code" class="text-white w-6 h-6"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">QRyptshare</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="https://github.com/tildemark/QRyptshare" class="text-slate-500 hover:text-slate-900 transition-colors">
+                <i data-lucide="github" class="w-6 h-6"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 flex flex-col md:flex-row items-center">
+        
+        <!-- Text Content -->
+        <div class="flex-1 space-y-8 text-center md:text-left">
+            <div class="inline-block px-4 py-1.5 bg-blue-50 text-blue-700 font-semibold rounded-full text-sm mb-2 border border-blue-100">
+                v1.0.0 Now Available
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight text-slate-900">
+                Generate QR Codes <br>
+                <span class="text-blue-600">Without the Tracking.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-500 max-w-lg mx-auto md:mx-0 leading-relaxed">
+                Create WiFi access codes, contact cards, and links instantly. Your data never leaves your device. No ads, no servers, just code.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                <!-- Direct APK Download Link -->
+                <!-- Replace 'app-release.apk' with your actual filename if different -->
+                <a href="./app-release.apk" class="flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 hover:-translate-y-1">
+                    <i data-lucide="download" class="w-5 h-5"></i>
+                    <span>Download APK</span>
+                </a>
+                
+                <a href="https://github.com/tildemark/QRyptshare" class="flex items-center justify-center gap-3 px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-semibold hover:bg-slate-50 transition-all">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                    <span>Source Code</span>
+                </a>
+            </div>
+
+            <p class="text-sm text-slate-400 pt-2">
+                Requires Android 8.0+ • Open Source • Ad-Free
+            </p>
+        </div>
+
+        <!-- Phone Mockup / Visual -->
+        <div class="flex-1 mt-12 md:mt-0 flex justify-center md:justify-end relative">
+            <div class="absolute inset-0 bg-blue-600/5 blur-3xl rounded-full"></div>
+            <!-- Simple CSS Phone Mockup -->
+            <div class="relative bg-slate-900 border-[14px] border-slate-900 rounded-[2.5rem] h-[600px] w-[300px] shadow-2xl z-10 overflow-hidden">
+                <div class="h-[32px] w-[3px] bg-slate-800 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
+                <div class="h-[46px] w-[3px] bg-slate-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
+                <div class="h-[64px] w-[3px] bg-slate-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
+                <div class="rounded-[2rem] overflow-hidden w-full h-full bg-white flex flex-col items-center justify-center relative">
+                    <!-- Screen Content Mock -->
+                    <div class="w-full h-full bg-slate-50 p-6 flex flex-col">
+                        <div class="bg-blue-600 h-32 rounded-2xl mb-6 shadow-lg flex items-center justify-center">
+                            <i data-lucide="qr-code" class="text-white w-12 h-12"></i>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="h-12 bg-white rounded-xl shadow-sm border border-slate-100"></div>
+                            <div class="h-12 bg-white rounded-xl shadow-sm border border-slate-100"></div>
+                            <div class="h-12 bg-white rounded-xl shadow-sm border border-slate-100"></div>
+                            <div class="h-32 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center">
+                                <i data-lucide="qr-code" class="text-slate-200 w-16 h-16"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Features Grid -->
+    <section class="bg-white border-t border-slate-100 py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                <!-- Feature 1 -->
+                <div class="space-y-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900">Privacy First</h3>
+                    <p class="text-slate-500 leading-relaxed">
+                        No servers, no databases. All data processing happens directly on your device. Your contacts and passwords remain yours.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="space-y-4">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600">
+                        <i data-lucide="wifi" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900">WiFi Sharing</h3>
+                    <p class="text-slate-500 leading-relaxed">
+                        Create secure QR codes for your home or office network. Supports WPA/WPA2, WEP, and hidden SSIDs.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="space-y-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600">
+                        <i data-lucide="user-plus" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900">vCard Contacts</h3>
+                    <p class="text-slate-500 leading-relaxed">
+                        Share your professional details instantly. Includes support for job titles, organizations, and websites.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 border-t border-slate-200 py-12">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-slate-500 text-sm">
+                &copy; 2025 QRyptshare. Open Source under MIT License.
+            </p>
+            <div class="flex items-center gap-6">
+                <a href="https://buymeacoffee.com/tildemark" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
+                    ☕ Buy me a coffee
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
