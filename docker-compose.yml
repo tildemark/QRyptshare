@@ -2,15 +2,18 @@ version: '3'
 
 services:
   qr-app:
-    build: .
+    build: 
+      context: .
+      args:
+        # CRITICAL FIX: Update this value (e.g., to 20251129-V6) every time you want to rebuild
+        CACHE_DATE: 20251129-V5 
     container_name: nextjs-qr-generator
     restart: always
-    # Maps internal port 3000 to external OCI host port 3010
     ports:
       - "3010:3000"
     environment:
       - NODE_ENV=production
-    networks: # <-- CRITICAL CHANGE: Attach to the shared network 'net'
+    networks:
       - net
 
 networks:
