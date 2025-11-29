@@ -10,3 +10,10 @@ services:
       - "3010:3000"
     environment:
       - NODE_ENV=production
+    networks: # <-- CRITICAL CHANGE: Attach to the shared network 'net'
+      - net
+
+networks:
+  net:
+    external: true
+    name: net
