@@ -9,8 +9,13 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package.json package-lock.json* ./
 
-# FORCE install of devDependencies (critical for Next.js build)
-RUN npm ci
+# FIX: Receive the cache buster arg. Changing this value in docker-compose will now actually force a rebuild.
+ARG CACHE_DATE
+RUN echo "Cache Bust: $CACHE_DATE"
+
+# FIX: Use 'npm install' and force development environment to ensure devDependencies (Tailwind, Autoprefixer) are installed.
+ENV NODE_ENV=development
+RUN npm install
 
 # Rebuild the source code only when needed
 FROM base AS builder
