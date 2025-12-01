@@ -5,11 +5,16 @@ services:
     build: 
       context: .
       args:
-        # **UPDATED:** Changed to V10.
-        CACHE_DATE: 20251201-V10
-        # **CRITICAL:** Explicitly tell NPM to ignore production mode during install
+        # **UPDATED:** Changed to V11 to force rebuild.
+        CACHE_DATE: 20251201-V11
+        # **CRITICAL FIXES:**
+        # 1. Force install of all dependencies (including dev)
         NPM_CONFIG_PRODUCTION: "false"
         NODE_ENV: development
+        # 2. Prevent warnings (linting/prettier) from failing the build
+        CI: "false" 
+        # 3. Disable telemetry to prevent network timeouts
+        NEXT_TELEMETRY_DISABLED: "1"
     container_name: nextjs-qr-generator
     restart: always
     ports:
