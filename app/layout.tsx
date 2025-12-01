@@ -16,6 +16,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        {/* Service Worker Registration Script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/serviceworker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                  }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                  });
+                });
+              }
+            `,
+          }}
+        />
+        {/* Firebase SDK imports removed as per user request */}
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );

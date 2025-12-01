@@ -47,8 +47,12 @@
             </div>
             <span class="text-xl font-bold tracking-tight">QRyptshare</span>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="https://github.com/tildemark/QRyptshare" class="text-slate-500 hover:text-slate-900 transition-colors">
+        <div class="flex items-center gap-6">
+            <!-- Added Navigation Link -->
+            <a href="http://qr.sanchez.ph" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors hidden md:block">
+                Live Demo
+            </a>
+            <a href="https://github.com/tildemark/QRyptshare" class="text-slate-500 hover:text-slate-900 transition-colors" aria-label="GitHub Source">
                 <i data-lucide="github" class="w-6 h-6"></i>
             </a>
         </div>
@@ -70,14 +74,19 @@
                 Create WiFi access codes, contact cards, and links instantly. Your data never leaves your device. No ads, no servers, just code.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4 flex-wrap">
                 <!-- Direct APK Download Link -->
-                <!-- The APK file must be in the same directory (or adjust the path) -->
                 <a href="./app-release.apk" class="flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/20 hover:-translate-y-1">
                     <i data-lucide="download" class="w-5 h-5"></i>
                     <span>Download APK</span>
                 </a>
                 
+                <!-- Added Web Demo Button -->
+                <a href="http://qr.sanchez.ph" class="flex items-center justify-center gap-3 px-8 py-4 bg-white text-blue-600 border border-blue-200 rounded-xl font-semibold hover:bg-blue-50 transition-all">
+                    <i data-lucide="globe" class="w-5 h-5"></i>
+                    <span>Try Web App</span>
+                </a>
+
                 <a href="https://github.com/tildemark/QRyptshare" class="flex items-center justify-center gap-3 px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-semibold hover:bg-slate-50 transition-all">
                     <i data-lucide="github" class="w-5 h-5"></i>
                     <span>Source Code</span>

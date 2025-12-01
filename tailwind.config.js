@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // This content array tells Tailwind CSS where to look for class names
-  // It scans all JavaScript, TypeScript, and JSX files in the 'app' directory 
-  // to build the smallest possible CSS output.
+  // CORRECTED: Ensure all template files (including .tsx for React components) are scanned.
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",

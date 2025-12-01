@@ -16,7 +16,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # CRITICAL FIX: CACHE BUSTER - Change this ARG value whenever you want to force a full rebuild
-# This forces the builder stage to run npm run build every time.
 ARG CACHE_DATE=20251129-V5 
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN npm run build
