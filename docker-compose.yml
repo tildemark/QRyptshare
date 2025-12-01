@@ -5,8 +5,8 @@ services:
     build: 
       context: .
       args:
-        # CRITICAL FIX: Update this value (e.g., to 20251129-V6) every time you want to rebuild
-        CACHE_DATE: 20251129-V5 
+        # **UPDATED:** Changed to V7 to force a full image rebuild, bypassing cache.
+        CACHE_DATE: 20251201-V7 
     container_name: nextjs-qr-generator
     restart: always
     ports:
