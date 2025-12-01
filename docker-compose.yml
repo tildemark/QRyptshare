@@ -5,13 +5,16 @@ services:
     build: 
       context: .
       args:
-        # **UPDATED:** Changed to V7 to force a full image rebuild, bypassing cache.
-        CACHE_DATE: 20251201-V7 
+        # **UPDATED:** Changed to V9 to force a fresh build.
+        CACHE_DATE: 20251201-V9
+        # **CRITICAL:** Force install of devDependencies (Tailwind/PostCSS) needed for building
+        NODE_ENV: development
     container_name: nextjs-qr-generator
     restart: always
     ports:
       - "3010:3000"
     environment:
+      # Runtime environment remains production
       - NODE_ENV=production
     networks:
       - net
