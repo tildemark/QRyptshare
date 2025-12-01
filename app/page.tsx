@@ -482,8 +482,6 @@ export default function Home() {
                   value={activeQR}
                   size={256}
                   level="Q"
-                  // Always 0 margin on the SVG itself, we handle margin via wrapper padding and canvas offset
-                  margin={0} 
                   className="h-auto max-w-full w-full"
                   bgColor={qrBgColor} 
                   fgColor={qrFgColor} 

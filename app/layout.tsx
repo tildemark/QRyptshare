@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "QRyptshare",
@@ -37,7 +34,7 @@ export default function RootLayout({
         />
         {/* Firebase SDK imports removed as per user request */}
       </head>
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
