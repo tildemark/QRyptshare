@@ -5,9 +5,10 @@ services:
     build: 
       context: .
       args:
-        # **UPDATED:** Changed to V9 to force a fresh build.
-        CACHE_DATE: 20251201-V9
-        # **CRITICAL:** Force install of devDependencies (Tailwind/PostCSS) needed for building
+        # **UPDATED:** Changed to V10.
+        CACHE_DATE: 20251201-V10
+        # **CRITICAL:** Explicitly tell NPM to ignore production mode during install
+        NPM_CONFIG_PRODUCTION: "false"
         NODE_ENV: development
     container_name: nextjs-qr-generator
     restart: always
